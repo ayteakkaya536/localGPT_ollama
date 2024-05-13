@@ -8,6 +8,8 @@ from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.llms import HuggingFacePipeline
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler  # for streaming response
 from langchain.callbacks.manager import CallbackManager
+##Ollama 
+from langchain.llms import Ollama
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
@@ -139,7 +141,9 @@ def retrieval_qa_pipline(device_type, use_history, promptTemplate_type="llama"):
     prompt, memory = get_prompt_template(promptTemplate_type=promptTemplate_type, history=use_history)
 
     # load the llm pipeline
-    llm = load_model(device_type, model_id=MODEL_ID, model_basename=MODEL_BASENAME, LOGGING=logging)
+    # llm = load_model(device_type, model_id=MODEL_ID, model_basename=MODEL_BASENAME, LOGGING=logging)
+    #Ollama
+    llm=Ollama(model="mistral")
 
     if use_history:
         qa = RetrievalQA.from_chain_type(
